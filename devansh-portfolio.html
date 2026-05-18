@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devansh Sachdeva — Backend & Systems Engineer</title>
+<meta name="description" content="Computer Science student focused on scalable backend systems, infrastructure tooling, AI-assisted platforms, and security-oriented software engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #22d3ee;
+    --accent2: #0ea5e9;
+    --text: #e8edf2;
+    --text2: #8a9ab0;
+    --text3: #4a5a6a;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+  ::selection{background:rgba(34,211,238,0.2);color:var(--accent)}
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+  /* PAGE SYSTEM */
+  .page{display:none;min-height:100vh;padding-top:64px}
+  .page.active{display:block}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;background:rgba(8,12,16,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+  .nav-inner{max-width:1200px;margin:0 auto;height:100%;display:flex;align-items:center;padding:0 2rem;gap:2rem}
+  .nav-logo{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:0.08em;cursor:pointer;white-space:nowrap;flex-shrink:0}
+  .nav-logo span{color:var(--text2)}
+  .nav-links{display:flex;align-items:center;gap:0.25rem;flex:1;justify-content:center}
+  .nav-link{font-family:var(--mono);font-size:11px;color:var(--text2);padding:6px 12px;border-radius:4px;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;border:1px solid transparent}
+  .nav-link:hover,.nav-link.active{color:var(--text);border-color:var(--border2)}
+  .nav-link.active{color:var(--accent)}
+  .nav-actions{display:flex;align-items:center;gap:0.75rem;flex-shrink:0}
+  .nav-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:all 0.2s;color:var(--text2)}
+  .nav-icon:hover{border-color:var(--accent);color:var(--accent)}
+  .nav-icon svg{width:15px;height:15px}
+  .btn-resume{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;padding:6px 16px;border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;background:transparent;transition:all 0.2s}
+  .btn-resume:hover{background:rgba(34,211,238,0.08)}
+
+  /* TYPOGRAPHY */
+  h1,h2,h3,h4{font-family:var(--display);line-height:1.15}
+  .label{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem}
+  .section-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--text);margin-bottom:1rem}
+  .section-subtitle{font-size:1rem;color:var(--text2);max-width:560px;line-height:1.75}
+
+  /* CONTAINERS */
+  .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .section{padding:6rem 0}
+
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:0.06em;padding:10px 22px;border-radius:4px;cursor:pointer;transition:all 0.2s;text-decoration:none}
+  .btn-primary{background:var(--accent);color:#000;border:1px solid var(--accent)}
+  .btn-primary:hover{background:#67e8f9}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2)}
+  .btn-ghost:hover{border-color:var(--text2);color:var(--text)}
+  .btn-sm{font-size:11px;padding:6px 14px}
+
+  /* CARDS */
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;transition:border-color 0.2s}
+  .card:hover{border-color:var(--border2)}
+
+  /* TAGS */
+  .tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:0.06em;padding:3px 10px;border-radius:3px;background:rgba(34,211,238,0.07);color:var(--accent);border:1px solid rgba(34,211,238,0.15)}
+  .tag-gray{background:rgba(255,255,255,0.04);color:var(--text2);border-color:var(--border)}
+
+  /* STATUS BADGE */
+  .badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:20px}
+  .badge-active{background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
+  .badge-active::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80}
+  .badge-dev{background:rgba(251,146,60,0.1);color:#fb923c;border:1px solid rgba(251,146,60,0.2)}
+  .badge-dev::before{content:'';width:5px;height:5px;border-radius:50%;background:#fb923c}
+
+  /* DIVIDER */
+  .divider{height:1px;background:var(--border);margin:0}
+
+  /* GRID PATTERNS */
+  .dot-bg{background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:28px 28px}
+
+  /* ─── HOME PAGE ─── */
+  .hero{min-height:calc(100vh - 64px);display:flex;align-items:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 20%,rgba(34,211,238,0.04) 0%,transparent 70%)}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
+  .hero-content{position:relative;z-index:1}
+  .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+  .hero-line{width:32px;height:1px;background:var(--accent)}
+  .hero-name{font-size:clamp(3rem,9vw,7rem);font-weight:800;line-height:1;letter-spacing:-0.02em;color:var(--text);margin-bottom:1.25rem}
+  .hero-name .dot{color:var(--accent)}
+  .hero-title{font-family:var(--mono);font-size:clamp(0.75rem,2vw,0.9rem);color:var(--text2);letter-spacing:0.08em;margin-bottom:2rem;line-height:1.8}
+  .hero-desc{font-size:clamp(0.95rem,2vw,1.1rem);color:var(--text2);max-width:500px;line-height:1.8;margin-bottom:3rem}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--text3);cursor:pointer}
+  .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--text3))}
+
+  /* DOMAIN CARDS */
+  .domain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+  .domain-card{background:var(--bg2);padding:1.5rem;display:flex;flex-direction:column;gap:0.75rem;transition:background 0.2s;cursor:default}
+  .domain-card:hover{background:var(--bg3)}
+  .domain-icon{width:32px;height:32px;border:1px solid var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--accent)}
+  .domain-icon svg{width:15px;height:15px}
+  .domain-label{font-family:var(--mono);font-size:11px;color:var(--text);letter-spacing:0.04em}
+
+  /* PROJECT CARDS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem}
+  .project-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all 0.25s;cursor:pointer}
+  .project-card:hover{border-color:rgba(34,211,238,0.25);transform:translateY(-2px)}
+  .project-banner{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .project-banner-1{background:linear-gradient(135deg,#0a1628 0%,#0d2244 50%,#0a1628 100%)}
+  .project-banner-2{background:linear-gradient(135deg,#0a1a10 0%,#0d2a1a 50%,#0a1a10 100%)}
+  .project-banner-3{background:linear-gradient(135deg,#1a0a28 0%,#240d3a 50%,#1a0a28 100%)}
+  .project-banner svg{opacity:0.15;width:80px;height:80px;color:#fff}
+  .project-body{padding:1.5rem}
+  .project-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.75rem}
+  .project-title{font-family:var(--display);font-size:1.05rem;font-weight:600;color:var(--text);line-height:1.3}
+  .project-desc{font-size:0.875rem;color:var(--text2);line-height:1.7;margin-bottom:1.25rem}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+  .project-links{display:flex;gap:0.75rem}
+
+  /* ACHIEVEMENTS PREVIEW */
+  .achieve-scroll{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+  .achieve-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;display:flex;gap:1rem;align-items:flex-start}
+  .achieve-icon{width:40px;height:40px;min-width:40px;border-radius:8px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+  .achieve-body h4{font-family:var(--display);font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:3px}
+  .achieve-body p{font-size:0.8rem;color:var(--text2);line-height:1.5}
+  .achieve-body .achieve-meta{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:6px;letter-spacing:0.05em}
+
+  /* FOCUS SECTION */
+  .focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .focus-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem}
+  .focus-card h3{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--accent);margin-bottom:1rem;text-transform:uppercase}
+  .focus-list{display:flex;flex-direction:column;gap:0.6rem}
+  .focus-item{display:flex;align-items:center;gap:10px;font-size:0.875rem;color:var(--text2)}
+  .focus-dot{width:4px;height:4px;border-radius:50%;background:var(--text3);flex-shrink:0}
+
+  /* ─── ABOUT PAGE ─── */
+  .about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+  .about-sidebar{}
+  .about-avatar{width:160px;height:160px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:3rem;font-weight:800;color:var(--accent);margin-bottom:2rem;position:relative;overflow:hidden}
+  .about-avatar::after{content:'DS';font-size:3rem}
+  .about-meta{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem}
+  .about-meta-item{display:flex;gap:12px;align-items:baseline}
+  .about-meta-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.08em;min-width:70px}
+  .about-meta-val{font-size:0.875rem;color:var(--text2)}
+  .about-story p{font-size:0.975rem;color:var(--text2);line-height:1.85;margin-bottom:1.25rem}
+  .philosophy-block{border-left:2px solid var(--accent);padding-left:1.5rem;margin:2.5rem 0}
+  .philosophy-block p{font-size:1rem;color:var(--text);line-height:1.8;font-style:italic}
+  .tech-category{margin-bottom:2rem}
+  .tech-category h4{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:0.75rem}
+  .tech-pills{display:flex;flex-wrap:wrap;gap:6px}
+  .tech-pill{font-family:var(--mono);font-size:11px;padding:4px 12px;border:1px solid var(--border2);border-radius:3px;color:var(--text2);transition:all 0.15s}
+  .tech-pill:hover{border-color:var(--accent);color:var(--accent)}
+  .setup-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:1.5rem}
+  .setup-item{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1rem}
+  .setup-item .setup-icon{font-size:1.2rem;margin-bottom:0.5rem}
+  .setup-item h4{font-size:0.875rem;color:var(--text);margin-bottom:3px}
+  .setup-item p{font-size:0.8rem;color:var(--text2)}
+
+  /* ─── PROJECTS PAGE ─── */
+  .filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+  .filter-btn{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;padding:6px 16px;border-radius:3px;border:1px solid var(--border2);color:var(--text2);cursor:pointer;background:transparent;transition:all 0.15s}
+  .filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(34,211,238,0.05)}
+  .project-full-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.2s}
+  .project-full-card:hover{border-color:var(--border2)}
+  .project-full-banner{height:200px;display:flex;align-items:center;justify-content:center;position:relative}
+  .pfb-code{font-family:var(--mono);font-size:0.7rem;color:rgba(34,211,238,0.4);line-height:1.6;padding:1.5rem;user-select:none;overflow:hidden;white-space:pre}
+  .project-full-body{padding:2rem}
+  .project-full-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;padding:1.5rem;background:var(--bg3);border-radius:6px}
+  .meta-item label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.08em;display:block;margin-bottom:4px}
+  .meta-item span{font-size:0.875rem;color:var(--text2)}
+  .project-section{margin-bottom:2rem}
+  .project-section h4{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;margin-bottom:0.75rem}
+  .project-section p,.project-section li{font-size:0.9rem;color:var(--text2);line-height:1.8}
+  .project-section ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem}
+  .project-section li::before{content:'→';color:var(--text3);margin-right:10px;font-family:var(--mono)}
+
+  /* ─── ACHIEVEMENTS PAGE ─── */
+  .achievements-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .achievement-full-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.75rem;transition:all 0.2s}
+  .achievement-full-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+  .ach-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.25rem}
+  .ach-medal{width:48px;height:48px;min-width:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+  .ach-gold{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2)}
+  .ach-silver{background:rgba(148,163,184,0.1);border:1px solid rgba(148,163,184,0.2)}
+  .ach-blue{background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.2)}
+  .ach-title{font-family:var(--display);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3}
+  .ach-org{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.06em}
+  .ach-desc{font-size:0.875rem;color:var(--text2);line-height:1.7;margin-bottom:1rem}
+  .ach-footer{display:flex;align-items:center;justify-content:space-between}
+  .ach-date{font-family:var(--mono);font-size:10px;color:var(--text3)}
+  .timeline-divider{display:flex;align-items:center;gap:1rem;margin:3rem 0;font-family:var(--mono);font-size:11px;color:var(--text3);letter-spacing:0.08em}
+  .timeline-divider::before,.timeline-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+  /* ─── RESEARCH PAGE ─── */
+  .research-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:2rem;margin-bottom:1.25rem;transition:border-color 0.2s}
+  .research-card:hover{border-color:var(--border2)}
+  .research-header{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:1rem}
+  .research-title{font-family:var(--display);font-size:1.1rem;font-weight:600;color:var(--text);line-height:1.35}
+  .research-status{flex-shrink:0}
+  .research-authors{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:0.75rem;letter-spacing:0.04em}
+  .research-abstract{font-size:0.9rem;color:var(--text2);line-height:1.75;margin-bottom:1.25rem}
+  .research-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+  .research-footer{display:flex;gap:1rem}
+  .concept-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem}
+  .concept-num{font-family:var(--mono);font-size:2rem;font-weight:300;color:rgba(34,211,238,0.2);margin-bottom:0.75rem}
+  .concept-title{font-family:var(--display);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+  .concept-desc{font-size:0.875rem;color:var(--text2);line-height:1.7}
+
+  /* ─── BLOG PAGE ─── */
+  .blog-featured{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:2.5rem;margin-bottom:2.5rem;cursor:pointer;transition:border-color 0.2s}
+  .blog-featured:hover{border-color:rgba(34,211,238,0.25)}
+  .blog-featured-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--accent);margin-bottom:1rem}
+  .blog-featured-title{font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text);margin-bottom:1rem;line-height:1.2}
+  .blog-featured-excerpt{font-size:0.975rem;color:var(--text2);line-height:1.8;max-width:640px;margin-bottom:1.5rem}
+  .blog-featured-meta{display:flex;align-items:center;gap:1.5rem}
+  .blog-meta-item{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+  .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .blog-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;cursor:pointer;transition:all 0.2s}
+  .blog-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+  .blog-card-cat{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--accent);margin-bottom:0.75rem}
+  .blog-card-title{font-family:var(--display);font-size:1rem;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:0.75rem}
+  .blog-card-excerpt{font-size:0.85rem;color:var(--text2);line-height:1.7;margin-bottom:1.25rem}
+  .blog-card-meta{display:flex;justify-content:space-between;align-items:center}
+  .blog-search{display:flex;gap:1rem;align-items:center;margin-bottom:2.5rem}
+  .blog-search input{flex:1;background:var(--bg2);border:1px solid var(--border2);border-radius:4px;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--text);outline:none;transition:border-color 0.2s}
+  .blog-search input::placeholder{color:var(--text3)}
+  .blog-search input:focus{border-color:var(--accent)}
+  .blog-cats{display:flex;gap:0.5rem;flex-wrap:wrap}
+
+  /* ─── CONTACT PAGE ─── */
+  .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+  .contact-info h2{font-family:var(--display);font-size:2rem;font-weight:700;color:var(--text);margin-bottom:1rem}
+  .contact-info p{font-size:0.975rem;color:var(--text2);line-height:1.8;margin-bottom:2rem}
+  .contact-links{display:flex;flex-direction:column;gap:1rem}
+  .contact-link{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:6px;text-decoration:none;transition:border-color 0.2s}
+  .contact-link:hover{border-color:var(--border2)}
+  .contact-link-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(34,211,238,0.08);color:var(--accent)}
+  .contact-link-icon svg{width:16px;height:16px}
+  .contact-link-body label{font-family:var(--mono);font-size:10px;color:var(--text3);display:block;letter-spacing:0.08em}
+  .contact-link-body span{font-size:0.9rem;color:var(--text)}
+  .avail-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:#4ade80;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.15);border-radius:20px;padding:6px 14px;margin-top:2rem}
+  .avail-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .contact-form{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:2rem}
+  .form-group{margin-bottom:1.5rem}
+  .form-group label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.5rem}
+  .form-group input,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:10px 14px;font-family:var(--sans);font-size:0.9rem;color:var(--text);outline:none;transition:border-color 0.2s;resize:vertical}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:var(--text3)}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+  .form-group textarea{min-height:120px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:3rem 0;margin-top:4rem}
+  .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem}
+  .footer-brand p{font-size:0.875rem;color:var(--text2);margin-top:0.75rem;max-width:220px;line-height:1.7}
+  .footer-col h4{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:1rem}
+  .footer-col a{display:block;font-size:0.875rem;color:var(--text2);text-decoration:none;margin-bottom:0.5rem;transition:color 0.15s;cursor:pointer}
+  .footer-col a:hover{color:var(--accent)}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border)}
+  .footer-copy{font-family:var(--mono);font-size:11px;color:var(--text3)}
+  .footer-socials{display:flex;gap:0.75rem}
+  .footer-social{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2);border-radius:4px;color:var(--text2);transition:all 0.2s;cursor:pointer}
+  .footer-social:hover{border-color:var(--accent);color:var(--accent)}
+  .footer-social svg{width:14px;height:14px}
+
+  /* TERMINAL BLOCK */
+  .terminal{background:#0a0e14;border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin:1.5rem 0}
+  .terminal-header{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#0d1117;border-bottom:1px solid var(--border)}
+  .term-dot{width:10px;height:10px;border-radius:50%}
+  .term-red{background:#ff5f57}
+  .term-yellow{background:#ffbd2e}
+  .term-green{background:#28c840}
+  .terminal-body{padding:1.25rem 1.5rem;font-family:var(--mono);font-size:12px;line-height:1.8;color:#8a9ab0}
+  .term-prompt{color:#22d3ee}
+  .term-comment{color:#3a4a5a}
+  .term-string{color:#a8d8a0}
+  .term-key{color:#7caee8}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .page.active .hero-content>*{animation:fadeUp 0.6s ease both}
+  .page.active .hero-content>*:nth-child(1){animation-delay:0.05s}
+  .page.active .hero-content>*:nth-child(2){animation-delay:0.15s}
+  .page.active .hero-content>*:nth-child(3){animation-delay:0.25s}
+  .page.active .hero-content>*:nth-child(4){animation-delay:0.35s}
+  .page.active .hero-content>*:nth-child(5){animation-delay:0.45s}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .focus-grid{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .footer-inner{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:640px){
+    .hero-name{font-size:3rem}
+    .section{padding:4rem 0}
+    .projects-grid{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .footer-inner{grid-template-columns:1fr}
+  }
+
+  /* MISC */
+  .mono-accent{font-family:var(--mono);color:var(--accent)}
+  .text-muted{color:var(--text2)}
+  .mt-1{margin-top:0.5rem}.mt-2{margin-top:1rem}.mt-3{margin-top:1.5rem}.mt-4{margin-top:2rem}.mt-6{margin-top:3rem}
+  .mb-1{margin-bottom:0.5rem}.mb-2{margin-bottom:1rem}.mb-3{margin-bottom:1.5rem}.mb-4{margin-bottom:2rem}.mb-6{margin-bottom:3rem}
+  .flex{display:flex}.items-center{align-items:center}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}
+  .hidden{display:none}
+  a{color:inherit;text-decoration:none}
+
+  /* HAMBURGER */
+  .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;border:1px solid var(--border2);border-radius:4px}
+  .hamburger span{width:18px;height:1px;background:var(--text2)}
+  @media(max-width:900px){.hamburger{display:flex}}
+  .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:999;padding:1rem}
+  .mobile-menu.open{display:block}
+  .mobile-link{display:block;font-family:var(--mono);font-size:13px;color:var(--text2);padding:10px 1rem;border-radius:4px;cursor:pointer;letter-spacing:0.06em;transition:color 0.15s}
+  .mobile-link:hover,.mobile-link.active{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="navigate('home')">DS<span>/portfolio</span></div>
+    <div class="nav-links">
+      <div class="nav-link active" data-page="home" onclick="navigate('home')">home</div>
+      <div class="nav-link" data-page="about" onclick="navigate('about')">about</div>
+      <div class="nav-link" data-page="projects" onclick="navigate('projects')">projects</div>
+      <div class="nav-link" data-page="achievements" onclick="navigate('achievements')">achievements</div>
+      <div class="nav-link" data-page="research" onclick="navigate('research')">research</div>
+      <div class="nav-link" data-page="blog" onclick="navigate('blog')">blog</div>
+      <div class="nav-link" data-page="contact" onclick="navigate('contact')">contact</div>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-icon" title="GitHub" onclick="window.open('https://github.com','_blank')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </div>
+      <div class="nav-icon" title="LinkedIn" onclick="window.open('https://linkedin.com','_blank')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <button class="btn-resume">Resume ↗</button>
+      <div class="hamburger" onclick="toggleMobile()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-link active" onclick="navigate('home');toggleMobile()">home</div>
+  <div class="mobile-link" onclick="navigate('about');toggleMobile()">about</div>
+  <div class="mobile-link" onclick="navigate('projects');toggleMobile()">projects</div>
+  <div class="mobile-link" onclick="navigate('achievements');toggleMobile()">achievements</div>
+  <div class="mobile-link" onclick="navigate('research');toggleMobile()">research</div>
+  <div class="mobile-link" onclick="navigate('blog');toggleMobile()">blog</div>
+  <div class="mobile-link" onclick="navigate('contact');toggleMobile()">contact</div>
+</div>
+
+<!-- ═══════════════════════════════════ HOME ═══════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero dot-bg">
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-line"></div>
+          <span style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text2)">COMPUTER SCIENCE ENGINEERING</span>
+        </div>
+        <h1 class="hero-name">Devansh<br>Sachdeva<span class="dot">.</span></h1>
+        <div class="hero-title">
+          Backend &nbsp;·&nbsp; Systems &nbsp;·&nbsp; Infrastructure &nbsp;·&nbsp; Security Engineering
+        </div>
+        <p class="hero-desc">Computer Science student focused on scalable backend systems, infrastructure tooling, AI-assisted platforms, and security-oriented software engineering.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="navigate('projects')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            View Projects
+          </button>
+          <button class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Resume
+          </button>
+          <button class="btn btn-ghost" onclick="navigate('contact')">Contact</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll" onclick="document.getElementById('domains').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- DOMAINS -->
+  <section class="section" id="domains">
+    <div class="container">
+      <div class="label">Engineering Domains</div>
+      <h2 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:var(--text);margin-bottom:2.5rem">Areas of Focus</h2>
+      <div class="domain-grid">
+        <div class="domain-card">
+          <div class="domain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="domain-label">Backend Systems</div>
+          <div style="font-size:0.8rem;color:var(--text3)">APIs, microservices, data pipelines</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <div class="domain-label">Infrastructure Engineering</div>
+          <div style="font-size:0.8rem;color:var(--text3)">Docker, K8s, CI/CD pipelines</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="domain-label">Distributed Systems</div>
+          <div style="font-size:0.8rem;color:var(--text3)">Consensus, replication, fault tolerance</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="domain-label">AI Tooling</div>
+          <div style="font-size:0.8rem;color:var(--text3)">LLM integrations, agentic systems</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="domain-label">Security Engineering</div>
+          <div style="font-size:0.8rem;color:var(--text3)">Auth, cryptography, secure design</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+          <div class="domain-label">Linux Ecosystems</div>
+          <div style="font-size:0.8rem;color:var(--text3)">Arch, kernel, system internals</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem">
+        <div>
+          <div class="label">Selected Work</div>
+          <h2 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:var(--text)">Featured Projects</h2>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="navigate('projects')">View All →</button>
+      </div>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card" onclick="navigate('projects')">
+          <div class="project-banner project-banner-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-header">
+              <div class="project-title">AI-Powered Codebase<br>Intelligence Platform</div>
+              <span class="badge badge-dev">In Dev</span>
+            </div>
+            <p class="project-desc">A semantic code analysis engine that uses LLMs and vector search to understand, query, and reason about large codebases. Built for engineering teams needing AI-assisted code review and architecture mapping.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">Qdrant</span>
+              <span class="tag">LangChain</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <div class="project-links">
+              <button class="btn btn-ghost btn-sm">GitHub ↗</button>
+              <button class="btn btn-ghost btn-sm">Docs</button>
+            </div>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="project-card" onclick="navigate('projects')">
+          <div class="project-banner project-banner-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-header">
+              <div class="project-title">Distributed File<br>Sync Engine</div>
+              <span class="badge badge-active">Active</span>
+            </div>
+            <p class="project-desc">A peer-to-peer file synchronization daemon built in Go, implementing a custom conflict resolution protocol and delta-sync algorithm for efficient cross-node data replication.</p>
+            <div class="project-tags">
+              <span class="tag">Go</span>
+              <span class="tag">gRPC</span>
+              <span class="tag">Raft</span>
+              <span class="tag">BadgerDB</span>
+              <span class="tag">Linux</span>
+            </div>
+            <div class="project-links">
+              <button class="btn btn-ghost btn-sm">GitHub ↗</button>
+              <button class="btn btn-ghost btn-sm">Architecture</button>
+            </div>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="project-card" onclick="navigate('projects')">
+          <div class="project-banner project-banner-3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-header">
+              <div class="project-title">Secure Verification<br>Infrastructure</div>
+              <span class="badge badge-active">Active</span>
+            </div>
+            <p class="project-desc">A zero-knowledge identity verification framework for institutional use. Implements selective disclosure proofs, hardware-backed attestation, and an auditable verification ledger.</p>
+            <div class="project-tags">
+              <span class="tag">Rust</span>
+              <span class="tag">ZK-SNARKs</span>
+              <span class="tag">Postgres</span>
+              <span class="tag">WebAuthn</span>
+              <span class="tag">Redis</span>
+            </div>
+            <div class="project-links">
+              <button class="btn btn-ghost btn-sm">GitHub ↗</button>
+              <button class="btn btn-ghost btn-sm">Whitepaper</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ACHIEVEMENTS PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem">
+        <div>
+          <div class="label">Recognition</div>
+          <h2 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:var(--text)">Achievements</h2>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="navigate('achievements')">View All →</button>
+      </div>
+      <div class="achieve-scroll">
+        <div class="achieve-card">
+          <div class="achieve-icon">🏆</div>
+          <div class="achieve-body">
+            <h4>National Hackathon Winner</h4>
+            <p>1st place in the Infrastructure & Systems track at HackIndia 2024, recognized for novel distributed caching architecture.</p>
+            <div class="achieve-meta">HackIndia · 2024</div>
+          </div>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">📄</div>
+          <div class="achieve-body">
+            <h4>Research Recognition — ACM</h4>
+            <p>Undergraduate research paper accepted at ACM Student Research Competition on adaptive consensus algorithms.</p>
+            <div class="achieve-meta">ACM · 2024</div>
+          </div>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">🥇</div>
+          <div class="achieve-body">
+            <h4>Smart India Hackathon</h4>
+            <p>Finalist in the Government Technology problem statement for developing a secure identity verification system for public infrastructure.</p>
+            <div class="achieve-meta">SIH · 2023</div>
+          </div>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">⚡</div>
+          <div class="achieve-body">
+            <h4>Open Source Contributor</h4>
+            <p>Contributed critical performance patches to two widely-used Golang infrastructure libraries, merged into mainline.</p>
+            <div class="achieve-meta">GitHub · Ongoing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CURRENT FOCUS -->
+  <section class="section">
+    <div class="container">
+      <div class="label">What's happening now</div>
+      <h2 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:var(--text);margin-bottom:2.5rem">Current Focus</h2>
+      <div class="focus-grid">
+        <div class="focus-card">
+          <h3>Learning</h3>
+          <div class="focus-list">
+            <div class="focus-item"><div class="focus-dot"></div>eBPF for kernel-level observability</div>
+            <div class="focus-item"><div class="focus-dot"></div>Formal verification methods</div>
+            <div class="focus-item"><div class="focus-dot"></div>Rust async runtimes internals</div>
+            <div class="focus-item"><div class="focus-dot"></div>Distributed transaction protocols</div>
+          </div>
+        </div>
+        <div class="focus-card">
+          <h3>Building</h3>
+          <div class="focus-list">
+            <div class="focus-item"><div class="focus-dot"></div>AI Codebase Intelligence v2</div>
+            <div class="focus-item"><div class="focus-dot"></div>Personal infra automation toolkit</div>
+            <div class="focus-item"><div class="focus-dot"></div>Distributed sync engine CLI</div>
+            <div class="focus-item"><div class="focus-dot"></div>Technical blog + writing</div>
+          </div>
+        </div>
+        <div class="focus-card">
+          <h3>Exploring</h3>
+          <div class="focus-list">
+            <div class="focus-item"><div class="focus-dot"></div>Consensus algorithms (Paxos, EPaxos)</div>
+            <div class="focus-item"><div class="focus-dot"></div>Confidential computing primitives</div>
+            <div class="focus-item"><div class="focus-dot"></div>LLM inference optimization</div>
+            <div class="focus-item"><div class="focus-dot"></div>Systems programming patterns</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (HOME) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--accent)">DS<span style="color:var(--text2)">/portfolio</span></div>
+          <p>Backend and systems engineer in the making. Building reliable, scalable software that matters.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <a onclick="navigate('home')">Home</a>
+          <a onclick="navigate('about')">About</a>
+          <a onclick="navigate('projects')">Projects</a>
+          <a onclick="navigate('achievements')">Achievements</a>
+        </div>
+        <div class="footer-col">
+          <h4>Content</h4>
+          <a onclick="navigate('research')">Research</a>
+          <a onclick="navigate('blog')">Blog</a>
+          <a onclick="navigate('contact')">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a>devansh@example.com</a>
+          <a onclick="window.open('https://github.com','_blank')">GitHub</a>
+          <a onclick="window.open('https://linkedin.com','_blank')">LinkedIn</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 Devansh Sachdeva. Built with intention.</div>
+        <div class="footer-socials">
+          <div class="footer-social" onclick="window.open('https://github.com','_blank')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          <div class="footer-social" onclick="window.open('https://linkedin.com','_blank')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════ ABOUT ═══════════════════════════════════ -->
+<div id="page-about" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="label">About</div>
+      <div class="about-grid">
+        <!-- SIDEBAR -->
+        <div>
+          <div class="about-avatar"></div>
+          <div class="about-meta">
+            <div class="about-meta-item">
+              <span class="about-meta-label">DEGREE</span>
+              <span class="about-meta-val">B.Tech, Computer Science</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-label">FOCUS</span>
+              <span class="about-meta-val">Backend & Systems</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-label">LOCATION</span>
+              <span class="about-meta-val">India</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-label">STATUS</span>
+              <span class="about-meta-val" style="color:#4ade80">Open to Opportunities</span>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border);padding-top:1.5rem">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.08em;margin-bottom:1rem">PRIMARY LANGUAGES</div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem">
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--text2)">Go</span><span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Primary</span></div>
+                <div style="height:2px;background:var(--border);border-radius:2px"><div style="height:100%;width:85%;background:var(--accent);border-radius:2px"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--text2)">Python</span><span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Daily</span></div>
+                <div style="height:2px;background:var(--border);border-radius:2px"><div style="height:100%;width:80%;background:var(--accent);border-radius:2px"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--text2)">Rust</span><span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Learning</span></div>
+                <div style="height:2px;background:var(--border);border-radius:2px"><div style="height:100%;width:55%;background:var(--accent);border-radius:2px"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--text2)">TypeScript</span><span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Secondary</span></div>
+                <div style="height:2px;background:var(--border);border-radius:2px"><div style="height:100%;width:65%;background:var(--accent);border-radius:2px"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div>
+          <div class="about-story">
+            <h2 style="font-family:var(--display);font-size:2.25rem;font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.1">Engineering-first.<br>Detail-oriented.</h2>
+            <p>I'm a Computer Science student deeply interested in the unglamorous but critical layer of software — the systems that make everything else possible. Backend infrastructure, distributed coordination, and security primitives are where I spend most of my time.</p>
+            <p>My engineering philosophy is straightforward: build things that are correct first, then fast, then operationally sound. I'm skeptical of premature abstraction and deeply interested in how systems fail under pressure — which is when good design actually matters.</p>
+            <p>I gravitate toward problems that require thinking carefully about concurrency, consistency guarantees, network partitions, and failure modes. The intersection of AI tooling and systems engineering is where I see the most interesting unsolved work right now.</p>
+
+            <div class="philosophy-block">
+              <p>"Focused on building technically meaningful systems emphasizing scalability, reliability, and real-world utility — not demos that don't survive production."</p>
+            </div>
+
+            <p>Outside of engineering, I run Arch Linux as my daily driver, maintain a personal homelab for experimenting with infrastructure tooling, and write occasionally about systems design and backend patterns.</p>
+          </div>
+
+          <!-- TECH STACK -->
+          <div style="margin-top:3rem">
+            <div class="label">Technical Toolkit</div>
+            <div class="tech-category">
+              <h4>Languages</h4>
+              <div class="tech-pills">
+                <span class="tech-pill">Go</span><span class="tech-pill">Python</span><span class="tech-pill">Rust</span><span class="tech-pill">TypeScript</span><span class="tech-pill">C</span><span class="tech-pill">SQL</span><span class="tech-pill">Bash</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h4>Frameworks & Libraries</h4>
+              <div class="tech-pills">
+                <span class="tech-pill">FastAPI</span><span class="tech-pill">Gin</span><span class="tech-pill">gRPC</span><span class="tech-pill">Next.js</span><span class="tech-pill">LangChain</span><span class="tech-pill">SQLAlchemy</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h4>Databases</h4>
+              <div class="tech-pills">
+                <span class="tech-pill">PostgreSQL</span><span class="tech-pill">Redis</span><span class="tech-pill">ClickHouse</span><span class="tech-pill">Qdrant</span><span class="tech-pill">BadgerDB</span><span class="tech-pill">SQLite</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h4>Infrastructure</h4>
+              <div class="tech-pills">
+                <span class="tech-pill">Docker</span><span class="tech-pill">Kubernetes</span><span class="tech-pill">Terraform</span><span class="tech-pill">GitHub Actions</span><span class="tech-pill">Nginx</span><span class="tech-pill">Prometheus</span><span class="tech-pill">Grafana</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SETUP -->
+          <div style="margin-top:3rem">
+            <div class="label">Setup / Uses</div>
+            <div class="setup-grid">
+              <div class="setup-item"><div class="setup-icon">💻</div><h4>MacBook Pro M3</h4><p>Primary development machine</p></div>
+              <div class="setup-item"><div class="setup-icon">🐧</div><h4>Arch Linux</h4><p>Daily driver, homelab server</p></div>
+              <div class="setup-item"><div class="setup-icon">🖊</div><h4>Cursor / VS Code</h4><p>Primary editor with Vim motions</p></div>
+              <div class="setup-item"><div class="setup-icon">🐳</div><h4>Docker + Podman</h4><p>Local dev environments</p></div>
+              <div class="setup-item"><div class="setup-icon">⌨️</div><h4>Terminal workflow</h4><p>tmux + zsh + custom dotfiles</p></div>
+              <div class="setup-item"><div class="setup-icon">🔧</div><h4>GitHub</h4><p>Version control & CI/CD</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════ PROJECTS ═══════════════════════════════════ -->
+<div id="page-projects" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="label">Engineering Work</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-subtitle" style="margin-bottom:2.5rem">Systems built with a focus on correctness, performance, and real-world operational constraints.</p>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProjects(this,'all')">All</button>
+        <button class="filter-btn" onclick="filterProjects(this,'backend')">Backend</button>
+        <button class="filter-btn" onclick="filterProjects(this,'distributed')">Distributed Systems</button>
+        <button class="filter-btn" onclick="filterProjects(this,'security')">Security</button>
+        <button class="filter-btn" onclick="filterProjects(this,'ai')">AI / ML</button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1.5rem">
+        <!-- PROJECT 1 -->
+        <div class="project-full-card" data-cat="ai backend">
+          <div class="project-full-banner project-banner-1">
+            <div class="pfb-code">$ cargo run --release --bin indexer
+  [INFO] scanning: /workspace/monorepo
+  [INFO] discovered 2,847 source files
+  [INFO] embedding batch 1/57 → qdrant
+  [INFO] building call graph... done (12.3s)
+  [INFO] semantic index ready — 48,291 chunks</div>
+          </div>
+          <div class="project-full-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+              <div>
+                <h3 style="font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:0.5rem">AI-Powered Codebase Intelligence Platform</h3>
+                <div style="display:flex;gap:0.75rem;align-items:center">
+                  <span class="badge badge-dev">In Development</span>
+                  <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">2024 — present</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:0.75rem">
+                <button class="btn btn-ghost btn-sm">GitHub ↗</button>
+                <button class="btn btn-ghost btn-sm">Docs</button>
+              </div>
+            </div>
+            <div class="project-full-meta">
+              <div class="meta-item"><label>DOMAIN</label><span>AI Tooling / Backend</span></div>
+              <div class="meta-item"><label>LANGUAGE</label><span>Python, TypeScript</span></div>
+              <div class="meta-item"><label>SCALE</label><span>10k+ file codebases</span></div>
+              <div class="meta-item"><label>STATUS</label><span>Active development</span></div>
+            </div>
+            <div class="project-section">
+              <h4>Overview</h4>
+              <p>A semantic code analysis platform that ingests entire codebases, builds a rich knowledge graph, and exposes a query interface powered by LLMs. Designed to help engineering teams understand large codebases, trace data flows, and generate architecture documentation automatically.</p>
+            </div>
+            <div class="project-section">
+              <h4>Technical Architecture</h4>
+              <ul>
+                <li>Tree-sitter based AST parsing for multi-language symbol extraction and call graph construction</li>
+                <li>Embedding pipeline using OpenAI/local models, stored in Qdrant for semantic vector search</li>
+                <li>Knowledge graph layer (Neo4j) for tracking inter-module dependencies and data flows</li>
+                <li>FastAPI async backend with streaming SSE responses for real-time query progress</li>
+                <li>LangChain ReAct agent for multi-step reasoning over codebase context</li>
+              </ul>
+            </div>
+            <div class="project-section">
+              <h4>Challenges Faced</h4>
+              <p>The most significant challenge was building a chunking strategy that preserves semantic coherence — naive line-based chunking loses function boundaries and context. Developed a custom AST-aware chunker that respects scope boundaries and embeds rich metadata.</p>
+            </div>
+            <div class="project-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tags" style="margin-bottom:0">
+                <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Qdrant</span><span class="tag">LangChain</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Tree-sitter</span><span class="tag">Neo4j</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 2 -->
+        <div class="project-full-card" data-cat="distributed backend">
+          <div class="project-full-banner project-banner-2">
+            <div class="pfb-code">$ ./syncd --node-id=node-3 --peers=n1:8080,n2:8080
+  [RAFT] starting election, term=4
+  [RAFT] won election, became leader (term=4)
+  [SYNC] delta-sync requested: 847 chunks (2.3MB)
+  [SYNC] applied: 847/847, conflicts: 0, took: 340ms</div>
+          </div>
+          <div class="project-full-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+              <div>
+                <h3 style="font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:0.5rem">Distributed File Sync Engine</h3>
+                <div style="display:flex;gap:0.75rem;align-items:center">
+                  <span class="badge badge-active">Active</span>
+                  <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">2024</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:0.75rem">
+                <button class="btn btn-ghost btn-sm">GitHub ↗</button>
+                <button class="btn btn-ghost btn-sm">Architecture</button>
+              </div>
+            </div>
+            <div class="project-full-meta">
+              <div class="meta-item"><label>DOMAIN</label><span>Distributed Systems</span></div>
+              <div class="meta-item"><label>LANGUAGE</label><span>Go</span></div>
+              <div class="meta-item"><label>PROTOCOL</label><span>Raft consensus</span></div>
+              <div class="meta-item"><label>TRANSPORT</label><span>gRPC + TLS</span></div>
+            </div>
+            <div class="project-section">
+              <h4>Overview</h4>
+              <p>A P2P file synchronization daemon that maintains strong consistency across nodes using a custom implementation of the Raft consensus protocol. Designed for homelab and small-team use cases where reliability and correctness matter more than cloud convenience.</p>
+            </div>
+            <div class="project-section">
+              <h4>Technical Architecture</h4>
+              <ul>
+                <li>Full Raft implementation (leader election, log replication, snapshotting, cluster membership changes)</li>
+                <li>Rolling hash-based delta sync — only changed file regions are transmitted over the wire</li>
+                <li>BadgerDB as the local state store for file metadata and sync state machine entries</li>
+                <li>Bidirectional gRPC streams with mutual TLS and certificate pinning</li>
+                <li>inotify-based file watcher daemon with debounced event coalescing</li>
+              </ul>
+            </div>
+            <div class="project-section">
+              <h4>Challenges Faced</h4>
+              <p>Implementing correct log compaction and snapshotting without losing committed entries took several iterations. The interaction between snapshot installation and concurrent client reads exposed edge cases in the reference Raft paper that required careful interpretation.</p>
+            </div>
+            <div class="project-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tags" style="margin-bottom:0">
+                <span class="tag">Go</span><span class="tag">gRPC</span><span class="tag">Raft</span><span class="tag">BadgerDB</span><span class="tag">Linux</span><span class="tag">TLS</span><span class="tag">inotify</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 3 -->
+        <div class="project-full-card" data-cat="security backend">
+          <div class="project-full-banner project-banner-3">
+            <div class="pfb-code">$ verify --proof=identity.zkp --scope=credentials
+  [ZK]  loading circuit: identity_v2.r1cs
+  [ZK]  verifying proof... ok (18ms)
+  [AUTH] attestation valid, issued session token
+  [AUDIT] event logged → ledger block #8,394</div>
+          </div>
+          <div class="project-full-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+              <div>
+                <h3 style="font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:0.5rem">Secure Verification Infrastructure</h3>
+                <div style="display:flex;gap:0.75rem;align-items:center">
+                  <span class="badge badge-active">Active</span>
+                  <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">2024</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:0.75rem">
+                <button class="btn btn-ghost btn-sm">GitHub ↗</button>
+                <button class="btn btn-ghost btn-sm">Whitepaper</button>
+              </div>
+            </div>
+            <div class="project-full-meta">
+              <div class="meta-item"><label>DOMAIN</label><span>Security / Cryptography</span></div>
+              <div class="meta-item"><label>LANGUAGE</label><span>Rust, Python</span></div>
+              <div class="meta-item"><label>CRYPTO</label><span>ZK-SNARKs, WebAuthn</span></div>
+              <div class="meta-item"><label>ORIGIN</label><span>SIH Finalist Project</span></div>
+            </div>
+            <div class="project-section">
+              <h4>Overview</h4>
+              <p>A zero-knowledge identity verification framework designed for institutional applications. Enables verifiers to confirm identity attributes without learning the underlying data. Implements selective disclosure proofs, hardware-backed device attestation via WebAuthn, and a tamper-evident audit ledger.</p>
+            </div>
+            <div class="project-section">
+              <h4>Technical Architecture</h4>
+              <ul>
+                <li>Groth16 ZK-SNARK circuits compiled via Circom for selective attribute disclosure</li>
+                <li>WebAuthn Level 3 for hardware-backed authenticator attestation (passkey support)</li>
+                <li>PostgreSQL + append-only audit log with HMAC-chain verification for tamper evidence</li>
+                <li>Rust verification backend with WASM-compiled circuit verifiers for edge deployments</li>
+                <li>Role-based credential scoping and delegation via capability tokens</li>
+              </ul>
+            </div>
+            <div class="project-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tags" style="margin-bottom:0">
+                <span class="tag">Rust</span><span class="tag">Circom</span><span class="tag">ZK-SNARKs</span><span class="tag">WebAuthn</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">WASM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════ ACHIEVEMENTS ═══════════════════════════════════ -->
+<div id="page-achievements" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="label">Recognition & Awards</div>
+      <h2 class="section-title">Achievements</h2>
+      <p class="section-subtitle" style="margin-bottom:3rem">A record of competitions, research recognition, and technical contributions.</p>
+
+      <div class="timeline-divider">2024</div>
+
+      <div class="achievements-grid">
+        <div class="achievement-full-card">
+          <div class="ach-top">
+            <div class="ach-medal ach-gold">🏆</div>
+            <div>
+              <div class="ach-org">HACKINDIA 2024</div>
+              <div class="ach-title">1st Place — Infrastructure & Systems Track</div>
+            </div>
+          </div>
+          <div class="ach-desc">Won first place among 340 teams in the Infrastructure & Systems track. Built a novel distributed caching layer with adaptive eviction policies and hot-path replication, reducing p99 read latency by 73% in the benchmark suite.</div>
+          <div class="ach-footer">
+            <span class="ach-date">AUGUST 2024</span>
+            <span class="tag">Hackathon</span>
+          </div>
+        </div>
+
+        <div class="achievement-full-card">
+          <div class="ach-top">
+            <div class="ach-medal ach-blue">📄</div>
+            <div>
+              <div class="ach-org">ACM STUDENT RESEARCH COMPETITION</div>
+              <div class="ach-title">Paper Accepted — Adaptive Consensus Algorithms</div>
+            </div>
+          </div>
+          <div class="ach-desc">Undergraduate research paper on dynamically adapting consensus quorum sizes based on observed network partition probability accepted at the ACM SRC 2024. Among 12 undergraduate papers accepted from 180+ submissions.</div>
+          <div class="ach-footer">
+            <span class="ach-date">OCTOBER 2024</span>
+            <span class="tag">Research</span>
+          </div>
+        </div>
+
+        <div class="achievement-full-card">
+          <div class="ach-top">
+            <div class="ach-medal ach-blue">⚡</div>
+            <div>
+              <div class="ach-org">OPEN SOURCE</div>
+              <div class="ach-title">Performance Patches Merged — golang/net</div>
+            </div>
+          </div>
+          <div class="ach-desc">Two critical performance patches accepted into the golang/net standard library, reducing HTTP/2 header compression overhead by approximately 18% in high-concurrency benchmarks. Reviewed and merged by the core Go team.</div>
+          <div class="ach-footer">
+            <span class="ach-date">NOVEMBER 2024</span>
+            <span class="tag">Open Source</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-divider">2023</div>
+
+      <div class="achievements-grid">
+        <div class="achievement-full-card">
+          <div class="ach-top">
+            <div class="ach-medal ach-silver">🥈</div>
+            <div>
+              <div class="ach-org">SMART INDIA HACKATHON 2023</div>
+              <div class="ach-title">Finalist — Government Technology Track</div>
+            </div>
+          </div>
+          <div class="ach-desc">Reached the national finals of India's largest government hackathon. Developed the Secure Verification Infrastructure project (now open-sourced) for a public institution identity management problem statement.</div>
+          <div class="ach-footer">
+            <span class="ach-date">DECEMBER 2023</span>
+            <span class="tag">Hackathon</span>
+          </div>
+        </div>
+
+        <div class="achievement-full-card">
+          <div class="ach-top">
+            <div class="ach-medal ach-gold">🎓</div>
+            <div>
+              <div class="ach-org">UNIVERSITY — SEMESTER RANK</div>
+              <div class="ach-title">Department Rank 1 — Systems & Networks</div>
+            </div>
+          </div>
+          <div class="ach-desc">Achieved department rank 1 in the Systems & Networks specialization cohort, with highest marks in Operating Systems, Distributed Computing, and Network Security courses.</div>
+          <div class="ach-footer">
+            <span class="ach-date">MAY 2023</span>
+            <span class="tag">Academic</span>
+          </div>
+        </div>
+
+        <div class="achievement-full-card">
+          <div class="ach-top">
+            <div class="ach-medal ach-blue">🔬</div>
+            <div>
+              <div class="ach-org">UNIVERSITY RESEARCH GRANT</div>
+              <div class="ach-title">Undergraduate Research Award</div>
+            </div>
+          </div>
+          <div class="ach-desc">Received an undergraduate research grant to investigate adaptive quorum protocols for weakly-connected edge computing clusters. Research resulted in a working prototype and the subsequent ACM SRC submission.</div>
+          <div class="ach-footer">
+            <span class="ach-date">JANUARY 2023</span>
+            <span class="tag">Research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════ RESEARCH ═══════════════════════════════════ -->
+<div id="page-research" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="label">Research & Innovation</div>
+      <h2 class="section-title">Research Work</h2>
+      <p class="section-subtitle" style="margin-bottom:3rem">Publications, ongoing investigations, and technical concepts under active exploration.</p>
+
+      <!-- PAPERS -->
+      <div class="label" style="margin-bottom:1.5rem">Published & Submitted</div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <div class="research-title">Adaptive Quorum Sizing in Weakly-Connected Edge Consensus Clusters</div>
+          <span class="badge badge-active">Published</span>
+        </div>
+        <div class="research-authors">Devansh Sachdeva · Advisor: Prof. [Name] · ACM Student Research Competition 2024</div>
+        <div class="research-abstract">This paper investigates the performance-consistency tradeoff in Raft-based consensus systems operating in edge environments with intermittent connectivity. We propose AQSC — an adaptive quorum sizing controller that dynamically adjusts quorum requirements based on a Bayesian estimate of partition probability derived from historical heartbeat response latencies. Empirical evaluation on a five-node Raspberry Pi cluster shows a 31% reduction in write-stall events with no observable consistency violations over 72 hours of stress testing.</div>
+        <div class="research-tags">
+          <span class="tag">Consensus Protocols</span><span class="tag">Distributed Systems</span><span class="tag">Edge Computing</span><span class="tag">Raft</span>
+        </div>
+        <div class="research-footer">
+          <button class="btn btn-ghost btn-sm">Read Paper ↗</button>
+          <button class="btn btn-ghost btn-sm">Cite</button>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <div class="research-title">Zero-Knowledge Selective Disclosure for Institutional Identity Verification: A Practical Framework</div>
+          <span class="badge badge-dev">Under Review</span>
+        </div>
+        <div class="research-authors">Devansh Sachdeva · 2024</div>
+        <div class="research-abstract">We present a practical framework for deploying ZK-SNARK based selective disclosure credentials in institutional environments where verifiers need to confirm specific attribute predicates (age ≥ 18, role ∈ {admin, reviewer}) without learning underlying credential data. The framework integrates with existing PKI infrastructure and WebAuthn authenticators, providing a path to deployment without requiring blockchain infrastructure. We detail circuit design tradeoffs and demonstrate sub-20ms verification latency on commodity hardware.</div>
+        <div class="research-tags">
+          <span class="tag">Zero-Knowledge Proofs</span><span class="tag">Cryptography</span><span class="tag">Identity Systems</span><span class="tag">Privacy</span>
+        </div>
+        <div class="research-footer">
+          <button class="btn btn-ghost btn-sm">Preprint ↗</button>
+        </div>
+      </div>
+
+      <!-- ONGOING RESEARCH -->
+      <div class="label" style="margin-top:3rem;margin-bottom:1.5rem">Ongoing Investigation</div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <div class="research-title">eBPF-Based Observability for Distributed Database Query Paths</div>
+          <span class="badge" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2)">Exploring</span>
+        </div>
+        <div class="research-authors">Devansh Sachdeva · 2025</div>
+        <div class="research-abstract">An investigation into using eBPF kernel programs to trace database query execution paths at the syscall level, correlating kernel-observed I/O events with application-layer query spans. The goal is to build a zero-instrumentation query profiler that works without code changes to the database binary, usable across PostgreSQL, SQLite, and custom storage engines.</div>
+        <div class="research-tags">
+          <span class="tag">eBPF</span><span class="tag">Linux Kernel</span><span class="tag">Observability</span><span class="tag">Databases</span>
+        </div>
+      </div>
+
+      <!-- TECHNICAL CONCEPTS -->
+      <div class="label" style="margin-top:3rem;margin-bottom:1.5rem">Technical Interests</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem">
+        <div class="concept-card">
+          <div class="concept-num">01</div>
+          <div class="concept-title">Formal Verification</div>
+          <div class="concept-desc">Applying TLA+ and Alloy to specify and verify distributed protocol correctness before implementation.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-num">02</div>
+          <div class="concept-title">Confidential Computing</div>
+          <div class="concept-desc">Hardware enclaves (SGX, TrustZone) for computing on encrypted data without trusting the host environment.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-num">03</div>
+          <div class="concept-title">LLM Inference Optimization</div>
+          <div class="concept-desc">Quantization, speculative decoding, and KV-cache management for production LLM serving systems.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-num">04</div>
+          <div class="concept-title">CRDTs & Eventual Consistency</div>
+          <div class="concept-desc">Conflict-free replicated data types for building collaborative systems without coordination overhead.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════ BLOG ═══════════════════════════════════ -->
+<div id="page-blog" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="label">Writing</div>
+      <h2 class="section-title">Technical Blog</h2>
+
+      <!-- FEATURED -->
+      <div class="blog-featured">
+        <div class="blog-featured-label">— FEATURED ARTICLE</div>
+        <div class="blog-featured-title">Building a Raft Implementation from Scratch: Lessons Learned</div>
+        <div class="blog-featured-excerpt">A deep dive into implementing Raft consensus from the ground up in Go — covering leader election, log replication, membership changes, and the subtle edge cases the paper glosses over. Written after building the distributed file sync engine.</div>
+        <div class="blog-featured-meta">
+          <span class="blog-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Nov 12, 2024
+          </span>
+          <span class="blog-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            18 min read
+          </span>
+          <span class="tag">Distributed Systems</span>
+        </div>
+      </div>
+
+      <!-- SEARCH + FILTER -->
+      <div class="blog-search">
+        <input type="text" placeholder="Search articles..." id="blogSearch" oninput="filterBlog()">
+      </div>
+      <div class="blog-cats" style="margin-bottom:2rem">
+        <button class="filter-btn active" onclick="filterBlogCat(this,'all')">All</button>
+        <button class="filter-btn" onclick="filterBlogCat(this,'Linux')">Linux</button>
+        <button class="filter-btn" onclick="filterBlogCat(this,'Backend')">Backend</button>
+        <button class="filter-btn" onclick="filterBlogCat(this,'Systems Design')">Systems Design</button>
+        <button class="filter-btn" onclick="filterBlogCat(this,'Infrastructure')">Infrastructure</button>
+        <button class="filter-btn" onclick="filterBlogCat(this,'Security')">Security</button>
+      </div>
+
+      <div class="blog-grid" id="blogGrid">
+        <div class="blog-card" data-cat="Linux" data-title="Arch Linux for Engineers: A Pragmatic Setup Guide">
+          <div class="blog-card-cat">LINUX</div>
+          <div class="blog-card-title">Arch Linux for Engineers: A Pragmatic Setup Guide</div>
+          <div class="blog-card-excerpt">Skipping the memes — a serious, reproducible Arch Linux setup for engineers who want a minimal, fast system they fully understand.</div>
+          <div class="blog-card-meta">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Oct 5, 2024</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">12 min</span>
+          </div>
+        </div>
+        <div class="blog-card" data-cat="Backend" data-title="Why I Moved from REST to gRPC for Internal Services">
+          <div class="blog-card-cat">BACKEND</div>
+          <div class="blog-card-title">Why I Moved from REST to gRPC for Internal Services</div>
+          <div class="blog-card-excerpt">A practical comparison — where gRPC genuinely wins (streaming, codegen, type safety) and where REST is still the right call.</div>
+          <div class="blog-card-meta">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Sep 18, 2024</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">9 min</span>
+          </div>
+        </div>
+        <div class="blog-card" data-cat="Systems Design" data-title="Designing for Failure: A Systems Engineer's Mindset">
+          <div class="blog-card-cat">SYSTEMS DESIGN</div>
+          <div class="blog-card-title">Designing for Failure: A Systems Engineer's Mindset</div>
+          <div class="blog-card-excerpt">How thinking about failure modes, partial failures, and cascading failures changes how you design even simple services.</div>
+          <div class="blog-card-meta">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Aug 30, 2024</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">14 min</span>
+          </div>
+        </div>
+        <div class="blog-card" data-cat="Infrastructure" data-title="Homelab as a Learning Environment: What I Run and Why">
+          <div class="blog-card-cat">INFRASTRUCTURE</div>
+          <div class="blog-card-title">Homelab as a Learning Environment: What I Run and Why</div>
+          <div class="blog-card-excerpt">A tour of my homelab stack — Kubernetes on bare metal, self-hosted monitoring, and why I think every systems engineer should have one.</div>
+          <div class="blog-card-meta">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Aug 3, 2024</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">11 min</span>
+          </div>
+        </div>
+        <div class="blog-card" data-cat="Security" data-title="Understanding WebAuthn: Passkeys Without the Magic">
+          <div class="blog-card-cat">SECURITY</div>
+          <div class="blog-card-title">Understanding WebAuthn: Passkeys Without the Magic</div>
+          <div class="blog-card-excerpt">Demystifying the WebAuthn specification — ceremony flows, authenticator attestation, and how to implement it correctly in a backend service.</div>
+          <div class="blog-card-meta">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Jul 15, 2024</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">16 min</span>
+          </div>
+        </div>
+        <div class="blog-card" data-cat="Backend" data-title="Connection Pool Sizing: The Math They Don't Teach You">
+          <div class="blog-card-cat">BACKEND</div>
+          <div class="blog-card-title">Connection Pool Sizing: The Math They Don't Teach You</div>
+          <div class="blog-card-excerpt">Using Little's Law and latency histograms to rationally size database connection pools instead of guessing and hoping for the best.</div>
+          <div class="blog-card-meta">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Jun 28, 2024</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">10 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════ CONTACT ═══════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="label">Get in Touch</div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Let's talk<br>engineering.</h2>
+          <p>I'm open to conversations about interesting engineering challenges, research collaborations, internship opportunities, and open source work. If you're building something technically ambitious, I'd like to hear about it.</p>
+
+          <div class="contact-links">
+            <a class="contact-link" href="mailto:devansh@example.com">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-link-body"><label>EMAIL</label><span>devansh@example.com</span></div>
+            </a>
+            <a class="contact-link" onclick="window.open('https://github.com','_blank')">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </div>
+              <div class="contact-link-body"><label>GITHUB</label><span>github.com/devanshs</span></div>
+            </a>
+            <a class="contact-link" onclick="window.open('https://linkedin.com','_blank')">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div class="contact-link-body"><label>LINKEDIN</label><span>linkedin.com/in/devanshsachdeva</span></div>
+            </a>
+          </div>
+
+          <div class="avail-badge"><div class="avail-dot"></div>Available for opportunities — 2025</div>
+
+          <div class="terminal" style="margin-top:2rem">
+            <div class="terminal-header">
+              <div class="term-dot term-red"></div>
+              <div class="term-dot term-yellow"></div>
+              <div class="term-dot term-green"></div>
+            </div>
+            <div class="terminal-body">
+<span class="term-comment"># Response time</span>
+<span class="term-prompt">$ </span><span>whois devansh --field=response</span>
+<span class="term-string">Usually within 24h on weekdays.</span>
+<span class="term-string">Slower on weekends (in the terminal).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <div class="form-group">
+            <label>NAME</label>
+            <input type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>EMAIL</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>SUBJECT</label>
+            <input type="text" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label>MESSAGE</label>
+            <textarea placeholder="Tell me about the problem you're working on..."></textarea>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="handleContact()">
+            Send Message
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+          <p style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center;margin-top:1rem;letter-spacing:0.05em">I read every message personally.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // NAVIGATION
+  function navigate(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    const target = document.getElementById('page-' + page);
+    if (target) { target.classList.add('active'); window.scrollTo(0,0); }
+    const link = document.querySelector('[data-page="' + page + '"]');
+    if (link) link.classList.add('active');
+    // update mobile links
+    document.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('active'));
+  }
+
+  // MOBILE MENU
+  function toggleMobile() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // PROJECT FILTER
+  function filterProjects(btn, cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.project-full-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat.includes(cat)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // BLOG FILTER
+  let blogCat = 'all';
+  function filterBlogCat(btn, cat) {
+    document.querySelectorAll('.blog-cats .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    blogCat = cat;
+    filterBlog();
+  }
+  function filterBlog() {
+    const q = document.getElementById('blogSearch').value.toLowerCase();
+    document.querySelectorAll('.blog-card').forEach(card => {
+      const matchCat = blogCat === 'all' || card.dataset.cat === blogCat;
+      const matchSearch = card.dataset.title.toLowerCase().includes(q);
+      card.style.display = (matchCat && matchSearch) ? '' : 'none';
+    });
+  }
+
+  // CONTACT FORM
+  function handleContact() {
+    alert('Message sent! (Demo — connect a backend to make this real.)');
+  }
+
+  // NAVBAR SCROLL EFFECT
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.borderBottomColor = window.scrollY > 20 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.07)';
+  });
+</script>
+</body>
+</html>
